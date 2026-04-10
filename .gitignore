@@ -1,0 +1,33 @@
+# VS Code nastavení
+.vscode/
+
+# build soubory
+*.o
+*.obj
+*.out
+*.exe
+
+# knihovny
+*.a
+*.so
+*.dylib
+
+# dočasné soubory
+*.log
+*.tmp
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# build složky (pokud je používáš)
+build/
+bin/
+
+# debugger
+*.dSYM/
+
+# Ignoruj minishell_tester
+minishell_tester/
