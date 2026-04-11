@@ -14,10 +14,10 @@
 #include <signal.h>
 #include <sys/stat.h>
 
-#define BOLDCYAN "\033[1;36m"
-#define BOLDWHITE "\033[1;37m"
-#define RESET "\033[0m"
-#define PROMPT BOLDCYAN "minishell" BOLDWHITE "$"
+// #define BOLDWHITE "\033[1;37m"
+// #define RESET "\033[0m"
+//#define PROMPT BOLDCYAN "minishell" BOLDWHITE "$"
+#define PROMPT "$ "
 #define SEPARATOR " \t\n\v\f\r" // \v - vertical tab, \f form feed - new page
 #define METACHARS "|<>"
 
@@ -83,12 +83,13 @@ typedef	struct s_shell
 }	t_shell;
 
 /* *** BUILTIN FCE *** */
-int			execute_unset(t_cmd *cmd, t_shell *shell);
-int			execute_env(t_cmd *cmd, t_shell *shell);
+int 		execute_cd(t_cmd *cmd, t_shell *shell);
 int			execute_echo(t_cmd *cmd);
+int			execute_env(t_cmd *cmd, t_shell *shell);
 int			execute_exit(t_cmd *cmd, t_shell *shell);
 int			execute_export(t_cmd *cmd, t_shell *shell);
 int			execute_pwd(t_env *env);
+int			execute_unset(t_cmd *cmd, t_shell *shell);
 t_builtin	get_builtin_type(char *cmd);
 
 /* *** ENV FCE *** */
@@ -112,6 +113,20 @@ void		free_shell(t_shell **shell);
 /* *** EXPANSION *** */
 char		*get_env_var_name(char *cmd_token);
 char		*expand_all(char *token, t_shell *shell);
+
+/* *** EXECUTION *** */
+void		child_process(int prev_fd, int pipe_fds[2], t_cmd *current,	t_shell *shell);
+void		close_heredoc_fd(t_cmd *cmd);
+int 		execute_binary_cmd(t_cmd *cmd, t_shell *shell);
+int 		execute_builtin_cmd(t_cmd *cmd, t_shell *shell);
+void 		execute_commands(t_shell *shell);
+int			execute_heredoc(t_cmd *cmd);
+int 		execute_pipeline(t_shell *shell);
+int 		execute_redir(t_redir *redir);
+char 		*get_cmd_path(t_shell *shell, char *cmd);
+int 		is_dir(char *path);
+void 		parent_process(int *prev_fd, int pipe_fds[2], t_cmd *current);
+void		wait_for_all_children(t_shell *shell, pid_t last_pid);
 
 /* *** LEXER *** */
 int			check_quotes_error(char **tokens, t_shell *shell);

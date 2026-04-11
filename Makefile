@@ -31,6 +31,15 @@ SRC = builtins/builtins.c \
 	  env/update_env_value.c \
 	  errors_free/display_error.c \
 	  errors_free/free_fce.c \
+	  execution/child_process.c \
+	  execution/exec_binary.c \
+	  execution/exec_builtin.c \
+	  execution/exec_commands.c \
+	  execution/exec_heredoc.c \
+	  execution/exec_pipeline.c \
+	  execution/exec_redir.c \
+	  execution/get_path.c \
+	  execution/parent_process.c \
 	  expansion/expand_all.c \
 	  expansion/get_env_var_name.c \
 	  lexer/check_quotes_error.c \
@@ -51,7 +60,7 @@ SRC = builtins/builtins.c \
 	  utils/general_split.c \
 	  utils/triple_join.c \
 	  utils/utils1.c \
-	  main.c \
+	  minishell.c \
 	
 # Object files (automatically fill of prefic src/)
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
