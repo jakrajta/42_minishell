@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+/**
+ * @brief Advances a string pointer to the end of a token, respecting quotes.
+ * * This function traverses the string until it encounters a separator or 
+ * a metacharacter. If it finds a quote (' or "), it skips everything until 
+ * the matching closing quote is found, ensuring that metacharacters inside 
+ * quotes are treated as regular text.
+ * * @param str The starting position within the input string.
+ * @return A pointer to the character immediately following the end of the token.
+ */
 static char	*skip_to_end(char *str)
 {
 	char	quote;
@@ -16,7 +25,14 @@ static char	*skip_to_end(char *str)
 	}
 	return (str);
 }
-
+/**
+ * @brief Calculates the total number of tokens in the input string.
+ * * Iterates through the raw input string to determine how many individual 
+ * tokens (words, pipes, or redirections) it contains. This count is used 
+ * to allocate the exact amount of memory needed for the tokens array.
+ * * @param str The raw input string to analyze.
+ * @return The total number of tokens identified.
+ */
 static int	count_tokens(char *str)
 {
 	int	count;
@@ -43,6 +59,16 @@ static int	count_tokens(char *str)
 	return (count);
 }
 
+/**
+ * @brief Determines the length of the next token in the string.
+ * * Handles different token types:
+ * 1. Double redirections (<<, >>) return length 2.
+ * 2. Single metacharacters (|, <, >) return length 1.
+ * 3. Regular words return the length until the next separator or metacharacter,
+ * while staying inside the boundaries of any active quotes.
+ * * @param str Pointer to the start of the token.
+ * @return The number of characters belonging to the token.
+ */
 static int	token_len(char *str)
 {
 	int	quote;
