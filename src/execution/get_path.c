@@ -2,9 +2,9 @@
 
 static void	update_split_paths(t_env *env)
 {
-	char *new_paths;
+	char	*new_paths;
 
-	if(env->split_paths)
+	if (env->split_paths)
 		free_array(env->split_paths);
 	new_paths = get_env_value("PATH", env->env_copy);
 	if (new_paths)
@@ -13,41 +13,35 @@ static void	update_split_paths(t_env *env)
 		env->split_paths = NULL;
 }
 
-//knihovna <sys/stat.h>
-int is_dir(char *path)   
+int	is_dir(char *path)
 {
-	struct stat   st;  //prazdna struktura pro zapsatni info o slozce
+	struct stat	st;
 
-	if (stat(path, &st) == 0)     // stat zjisti podle path k slozce inco a ulozi do struktury  
-		return (S_ISDIR(st.st_mode));  // makro.\, ktere podle infomaci rozhode jestli je to slozka  == 1 nebo  ne == 0
-	return (0);   //vse ok, info o slozce
+	if (stat(path, &st) == 0)
+		return (S_ISDIR(st.st_mode));
+	return (0);
 }
 
-char *get_cmd_path(t_shell *shell, char *cmd)
-//char *cmd = cmd->token[0] / v ls -la | grep "ahoj"  je to ls a grep
+char	*get_cmd_path(t_shell *shell, char *cmd)
 {
-	char *full_path;
-	int i;
-	
+	char	*full_path;
+	int		i;
+
 	if (!shell || !cmd)
 		return (NULL);
-	// pokud je cesta zadana  cd 42/42_minishell/minishell
 	if (ft_strchr(cmd, '/'))
 	{
-		if (access(cmd, F_OK) == 0)  // && is_dir(shell->all_tokens[0])) neni nutne childs process si to osefuje errnem
+		if (access(cmd, F_OK) == 0)
 			return (ft_strdup(cmd));
 		return (NULL);
 	}
-	// updatuju env->split_paths, nutne po update env->env_copy pomoci export/unset
 	update_split_paths(shell->env);
-
-	//  prikaz bez cesty napr. ls  ->v path hledame cestu k binarce prikazu (ls, cat...)
 	i = 0;
 	while (shell->env->split_paths && shell->env->split_paths[i])
 	{
 		full_path = triple_strjoin(shell->env->split_paths[i], "/", cmd);
 		if (!full_path)
-			return(NULL);
+			return (NULL);
 		if (full_path && access(full_path, X_OK) == 0 && !is_dir(full_path))
 			return (full_path);
 		free(full_path);
@@ -55,4 +49,3 @@ char *get_cmd_path(t_shell *shell, char *cmd)
 	}
 	return (NULL);
 }
-

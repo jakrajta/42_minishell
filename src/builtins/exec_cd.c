@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+/**
+ * @brief Synchronizes the PWD and OLDPWD internal variables and environment.
+ * * This helper function retrieves the current working directory using getcwd(),
+ * updates the shell's internal tracking of 'pwd' and 'old_pwd', and reflects 
+ * these changes in the exported environment variables. It ensures that 
+ * commands like 'pwd' or 'env' always show the correct location after a 'cd'.
+ * * @param env Pointer to the environment structure containing pwd and old_pwd.
+ */
 static void	update_pwd_var(t_env *env)
 {
 	char	*new_cwd;
@@ -18,6 +26,18 @@ static void	update_pwd_var(t_env *env)
 	update_env_value("PWD", env->pwd, env);
 }
 
+/**
+ * @brief Executes the 'cd' (change directory) built-in command.
+ * * Handles directory changes with the following logic:
+ * - 'cd' without arguments: Changes to the directory specified in the HOME variable.
+ * - 'cd -': Changes to the previous working directory (OLDPWD) and prints it.
+ * - 'cd [path]': Changes to the specified relative or absolute path.
+ * * If the transition is successful via chdir(), it triggers an update of the 
+ * PWD and OLDPWD environment variables.
+ * * @param cmd Pointer to the command structure containing the tokens/path.
+ * @param shell Pointer to the shell structure for environment access.
+ * @return 0 on success, or 1 if an error occurs (e.g., directory not found).
+ */
 int	execute_cd(t_cmd *cmd, t_shell *shell)
 {
 	char	*dir;

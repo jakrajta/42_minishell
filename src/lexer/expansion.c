@@ -77,7 +77,7 @@ static char	*handle_expansion(char *token, int *i, t_shell *shell)
  * @param shell Pointer to the shell structure for context.
  * @return The fully expanded token string.
  */
-char	*expand_all(char *token, t_shell *shell)
+char	*expand_token(char *token, t_shell *shell)
 {
 	int	in_single_q;
 	int	in_double_q;
@@ -104,4 +104,29 @@ char	*expand_all(char *token, t_shell *shell)
 		i++;
 	}
 	return (token);
+}
+
+/**
+ * @brief Processes environment variable expansion for all tokens and 
+ * stores the result.
+ * * This function iterates through a NULL-terminated array of strings (tokens),
+ * applying expansion logic (e.g., replacing $VAR with its value) to each.
+ * Once all tokens are processed, it updates the shell structure by 
+ * assigning the pointer to the processed tokens array to shell->all_tokens.
+ * * @param tokens A pointer to the array of strings to be expanded.
+ * @param shell A pointer to the main shell structure containing environment 
+ * variables and where the final tokens will be stored.
+ * * @return void
+ */
+void	store_expanded_tokens(char **tokens, t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (tokens && tokens[i])
+	{
+		tokens[i] = expand_token(tokens[i], shell);
+		i++;
+	}
+	shell->all_tokens = tokens;
 }

@@ -2,7 +2,7 @@
 
 /** @brief fce receives current working directory by getcwd and
  * displays it to terminal
- * parent fce: execute_builtin_cmd();
+ * parent fce: execute_builtin();
 */
 int	execute_pwd(t_env *env)
 {

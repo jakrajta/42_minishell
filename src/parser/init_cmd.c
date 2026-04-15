@@ -55,7 +55,7 @@ t_cmd	*init_cmd(char **raw_tokens, int *i)
 	cmd->tokens_count = 0;
 	cmd->valid_path = NULL;
 	cmd->skip_exec = 0;
-	cmd->builtin = NONE;
+	cmd->builtin = B_NONE;
 	cmd->redir = NULL;
 	cmd->next = NULL;
 	len = count_real_tokens(raw_tokens, *i);

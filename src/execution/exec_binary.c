@@ -2,7 +2,7 @@
 
 static int	path_error(char *cmd_token)
 {
-	int exit_status;
+	int	exit_status;
 
 	if (ft_strchr(cmd_token, '/'))
 	{
@@ -25,29 +25,26 @@ static int	path_error(char *cmd_token)
 	return (exit_status);
 }
 
-int	execute_binary_cmd(t_cmd *cmd, t_shell *shell)
+int	execute_binary(t_cmd *cmd, t_shell *shell)
 {
-	char  *path;
-	int exit_status;
+	char	*path;
+	int		exit_status;
 
-	path = get_cmd_path(shell, cmd->tokens[0]); //malloced
+	path = get_cmd_path(shell, cmd->tokens[0]);
 	if (!path)
 	{
 		exit_status = path_error(cmd->tokens[0]);
 		free_shell(&shell);
 		exit(exit_status);
 	}
-	if (execve(path, cmd->tokens, shell->env->env_copy) == -1) 
+	if (isatty(STDIN_FILENO))
+		tcsetattr(STDIN_FILENO, TCSANOW, &shell->original_term);
+	if (execve(path, cmd->tokens, shell->env->env_copy) == -1)
 	{
 		sys_error(cmd->tokens[0], NULL, strerror(errno));
 		free(path);
 		free_shell(&shell);
 		exit(126);
 	}
-	// pokdu by excve byl exekuovan v rodici, tak by hned po vykonani binarniho programu,
-	// smazal program, ktery ho vykonal, takze terminal by se zavrel. Proto musi v child
-	// pokud excve je ok, tak OS si pamet forku prevezme 
-	// a uvolni ji tak,ze ji nahradi novym program napr. /bin/ls.
-	//  po te co se vykona, tak os uvolni vse, co proces pouzival
 	return (0);
 }

@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-static int handle_redir(t_redir *redir)
+static int	handle_redir(t_redir *redir)
 {
-	int fd;
-	int std_fd;
+	int	fd;
+	int	std_fd;
 
 	if (redir->tok_type == HEREDOC)
 	{
@@ -27,23 +27,20 @@ static int handle_redir(t_redir *redir)
 	}
 	if (fd < 0)
 		return (sys_error(NULL, redir->file, strerror(errno)));
-	dup2(fd, std_fd); // pro heredoc se tady napoji STIDIN_FILENO na FD[0]pipe heredoku
-	close (fd);
+	dup2(fd, std_fd);
+	close(fd);
 	return (0);
 }
 
-int execute_redir(t_redir *redir)
+int	execute_redir(t_redir *redir)
 {
-	t_redir *current;
+	t_redir	*current;
 
 	if (!redir)
 		return (0);
-
 	current = redir;
 	while (current)
 	{
-		// Už tady nemusíme dupovat stdin/stdout backupy, 
-		// protože handle_redir už u Heredocu nepotřebuje klávesnici.
 		if (handle_redir(current))
 			return (1);
 		current = current->next;

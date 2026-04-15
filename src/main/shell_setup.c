@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+void toggle_echoctl(int enable)
+{
+	struct termios	term;
+
+	if (!isatty(STDIN_FILENO))
+		return ;
+	if (tcgetattr(STDIN_FILENO, &term)== -1)
+		return ;
+	if (enable)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 /**
  * @brief Handles the incrementation of the SHLVL environment variable.
  * * 1. Fetches the current SHLVL value from the environment copy.
@@ -26,4 +41,16 @@ void	handle_shlvl(t_shell *shell)
 		return ;
 	update_env_value("SHLVL", value, shell->env);
 	free(value);
+}
+
+void	shell_setup(t_shell *shell)
+{
+	if (isatty(STDIN_FILENO))
+	{
+		if (tcgetattr(STDIN_FILENO, &shell->original_term) == -1)
+			return ;
+		toggle_echoctl(0);
+	}
+	handle_shlvl(shell);
+	signal_setup();
 }

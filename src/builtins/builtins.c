@@ -13,20 +13,20 @@
 t_builtin	get_builtin_type(char *cmd)
 {
 	if (!cmd)
-		return (NONE);
+		return (B_NONE);
 	if (ft_strncmp(cmd, "pwd", 4) == 0)
-		return (PWD);
+		return (B_PWD);
 	if (ft_strncmp(cmd, "exit", 5) == 0)
-		return (EXIT);
+		return (B_EXIT);
 	if (ft_strncmp(cmd, "echo", 5) == 0)
-		return (ECHO);
+		return (B_ECHO);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (CD);
+		return (B_CD);
 	if (ft_strncmp(cmd, "env", 4) == 0)
-		return (ENV);
+		return (B_ENV);
 	if (ft_strncmp(cmd, "export", 7) == 0)
-		return (EXPORT);
+		return (B_EXPORT);
 	if (ft_strncmp(cmd, "unset", 6) == 0)
-		return (UNSET);
-	return (NONE);
+		return (B_UNSET);
+	return (B_NONE);
 }

@@ -12,11 +12,13 @@
 #include <errno.h>
 #include <limits.h>
 #include <signal.h>
-#include <sys/stat.h>
+#include <sys/stat.h>  // int is_dir(char *path)
+#include <termios.h>
 
+// #define BOLDCYAN "\033[1;36m"
 // #define BOLDWHITE "\033[1;37m"
 // #define RESET "\033[0m"
-//#define PROMPT BOLDCYAN "minishell" BOLDWHITE "$"
+// #define PROMPT BOLDCYAN "minishell" BOLDWHITE "$"
 #define PROMPT "$ "
 #define SEPARATOR " \t\n\v\f\r" // \v - vertical tab, \f form feed - new page
 #define METACHARS "|<>"
@@ -25,14 +27,14 @@ extern int	g_status;  // signal exit status
 
 typedef	enum e_builtin
 {
-	NONE = 0,
-	PWD,
-	EXIT,
-	ECHO,
-	CD,
-	ENV,
-	EXPORT,
-	UNSET
+	B_NONE = 0,
+	B_PWD,
+	B_EXIT,
+	B_ECHO,
+	B_CD,
+	B_ENV,
+	B_EXPORT,
+	B_UNSET
 }	t_builtin;
 
 typedef	enum e_token
@@ -77,9 +79,10 @@ typedef	struct s_shell
 {
 	char	*cmd_line;    //stores initial input from user
 	char	**all_tokens;  // cmd line splitted to tokens with quotes and expanded VARS and $?
-	int		last_exit_status;  
+	int		last_exit_status; 
 	t_cmd	*cmd;
 	t_env	*env;
+	struct termios original_term;  //original tty setting backup (for toggle ECHOCTL)
 }	t_shell;
 
 /* *** BUILTIN FCE *** */
@@ -110,15 +113,11 @@ void		free_env(t_env **env);
 void 		free_redir_list(t_redir **redir);
 void		free_shell(t_shell **shell);
 
-/* *** EXPANSION *** */
-char		*get_env_var_name(char *cmd_token);
-char		*expand_all(char *token, t_shell *shell);
-
 /* *** EXECUTION *** */
 void		child_process(int prev_fd, int pipe_fds[2], t_cmd *current,	t_shell *shell);
 void		close_heredoc_fd(t_cmd *cmd);
-int 		execute_binary_cmd(t_cmd *cmd, t_shell *shell);
-int 		execute_builtin_cmd(t_cmd *cmd, t_shell *shell);
+int 		execute_binary(t_cmd *cmd, t_shell *shell);
+int 		execute_builtin(t_cmd *cmd, t_shell *shell);
 void 		execute_commands(t_shell *shell);
 int			execute_heredoc(t_cmd *cmd);
 int 		execute_pipeline(t_shell *shell);
@@ -130,8 +129,19 @@ void		wait_for_all_children(t_shell *shell, pid_t last_pid);
 
 /* *** LEXER *** */
 int			check_quotes_error(char **tokens, t_shell *shell);
-void		finalize_tokens(char **tokens, t_shell *shell);
+char		*get_env_var_name(char *cmd_token);
+char		*expand_token(char *token, t_shell *shell);
 char		**split_to_tokens(char *str);
+void		store_expanded_tokens(char **tokens, t_shell *shell);
+
+/* *** MAIN *** */
+void		handle_shlvl(t_shell *shell);
+t_env		*init_env(char **envp);
+t_shell		*init_shell(char **envp);
+void		process_input(t_shell *shell);
+char		*read_input(t_shell *shell);
+void		shell_setup(t_shell *shell);
+void		toggle_echoctl(int enable);
 
 /* *** PARSER *** */
 int			check_syntax_error(t_shell *shell);
@@ -141,11 +151,6 @@ t_token		get_token_type(char *token);
 t_cmd		*init_cmd(char **all_tokens_start, int *i);
 t_redir		*init_redir_struct(char *token);
 void		remove_quotes(char *str);
-
-/* *** SETUP *** */
-void		handle_shlvl(t_shell *shell);
-t_env		*init_env(char **envp);
-t_shell		*init_shell(char **envp);
 
 /* *** SIGNALS *** */
 void 		heredoc_signal_setup(void);

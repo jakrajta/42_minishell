@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilibft
+CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilibft  -D_GNU_SOURCE
 
 #Colors
 GREEN = \033[0;32m
@@ -40,10 +40,9 @@ SRC = builtins/builtins.c \
 	  execution/exec_redir.c \
 	  execution/get_path.c \
 	  execution/parent_process.c \
-	  expansion/expand_all.c \
-	  expansion/get_env_var_name.c \
 	  lexer/check_quotes_error.c \
-	  lexer/finalize_tokens.c \
+	  lexer/expansion.c \
+	  lexer/get_env_var_name.c \
 	  lexer/split_to_tokens.c \
 	  parser/check_syntax_error.c \
 	  parser/fill_cmd_list.c \
@@ -52,9 +51,10 @@ SRC = builtins/builtins.c \
 	  parser/init_cmd.c \
 	  parser/init_redir.c \
 	  parser/remove_quotes.c \
-	  setup/handle_shlvl.c \
-	  setup/init_env.c \
-	  setup/init_shell.c \
+	  main/init_env.c \
+	  main/init_shell.c \
+	  main/process_input.c \
+	  main/shell_setup.c \
 	  signals/signals.c \
 	  signals/heredoc_signals.c \
 	  utils/general_split.c \
@@ -100,3 +100,7 @@ re: fclean all
 .PHONY: all clean fclean re
 
 .SILENT:
+
+# valgrind --leak-check=full --show-leak-kinds=definite ./minishell
+# valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+# valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes ./minishell

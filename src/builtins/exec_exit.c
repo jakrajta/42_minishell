@@ -106,9 +106,7 @@ int	execute_exit(t_cmd *cmd, t_shell *shell)
 	if (isatty(STDIN_FILENO))
 		ft_putstr_fd("exit\n", 2);
 	if (cmd->tokens_count == 1)
-	{
 		cleanup_and_exit(shell, shell->last_exit_status);
-	}
 	if (is_number(cmd->tokens[1]) == 0
 		|| exit_ll_atoi(cmd->tokens[1], &exit_code) == 0)
 	{
