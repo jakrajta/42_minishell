@@ -49,5 +49,3 @@ int	tokens_count(char **array)
 	}
 	return (count);
 }
-
-

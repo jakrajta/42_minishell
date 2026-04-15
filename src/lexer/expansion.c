@@ -2,7 +2,8 @@
 
 /**
  * @brief Replaces a variable placeholder in a string with its actual value.
- * * This function takes a token, cuts out the variable name starting at index 'i',
+ * * This function takes a token, cuts out the variable name 
+ * starting at index 'i',
  * and replaces it with the provided 'value'. It handles the memory by freeing
  * the old token and returning a newly allocated string.
  * * @param token The original string containing the variable.

@@ -29,7 +29,8 @@ static void	update_pwd_var(t_env *env)
 /**
  * @brief Executes the 'cd' (change directory) built-in command.
  * * Handles directory changes with the following logic:
- * - 'cd' without arguments: Changes to the directory specified in the HOME variable.
+ * - 'cd' without arguments: Changes to the directory 
+ * specified in the HOME variable.
  * - 'cd -': Changes to the previous working directory (OLDPWD) and prints it.
  * - 'cd [path]': Changes to the specified relative or absolute path.
  * * If the transition is successful via chdir(), it triggers an update of the 

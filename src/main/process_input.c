@@ -4,12 +4,11 @@ char	*read_input(t_shell *shell)
 {
 	char	*cmd_line;
 	char	*prompt;
-	
+
 	if (isatty(STDIN_FILENO))
 		prompt = PROMPT;
-	else 
+	else
 		prompt = NULL;
-
 	cmd_line = readline(prompt);
 	if (g_status != 0)
 	{
@@ -18,7 +17,7 @@ char	*read_input(t_shell *shell)
 	}
 	if (cmd_line && *cmd_line)
 		add_history(cmd_line);
-	return (cmd_line);	
+	return (cmd_line);
 }
 
 static void	clean_tokens(char **tokens, t_shell *shell)

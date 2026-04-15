@@ -1,13 +1,17 @@
 #include "minishell.h"
 
 /**
- * @brief Dispatcher function that identifies and executes shell built-in commands.
+ * @brief Dispatcher function that identifies and 
+ * executes shell built-in commands.
  * * This function acts as a central hub for built-in execution. It checks the 
  * command's builtin type (assigned during parsing) and calls the corresponding 
  * handler function. It ensures that standard shell utilities like echo, cd, 
- * or export are executed within the shell's logic rather than as external binaries.
- * * @param cmd Pointer to the command structure containing arguments and builtin type.
- * @param shell Pointer to the shell structure for accessing environment and state.
+ * or export are executed within the shell's logic rather 
+ * than as external binaries.
+ * * @param cmd Pointer to the command structure 
+ * containing arguments and builtin type.
+ * @param shell Pointer to the shell structure 
+ * for accessing environment and state.
  * @return The exit status returned by the specific built-in function, 
  * 1 if the command is invalid, or 0 if no matching builtin is found.
  */

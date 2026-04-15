@@ -24,7 +24,7 @@ void	free_redir_list(t_redir **redir)
 	while (*redir)
 	{
 		temp = (*redir)->next;
-		if((*redir)->file)
+		if ((*redir)->file)
 			free((*redir)->file);
 		free(*redir);
 		*redir = temp;

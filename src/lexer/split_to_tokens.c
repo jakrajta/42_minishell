@@ -25,6 +25,7 @@ static char	*skip_to_end(char *str)
 	}
 	return (str);
 }
+
 /**
  * @brief Calculates the total number of tokens in the input string.
  * * Iterates through the raw input string to determine how many individual 

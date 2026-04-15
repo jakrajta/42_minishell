@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (1);
 	shell_setup(shell);
-	while(1)
+	while (1)
 	{
 		shell->cmd_line = read_input(shell);
 		if (!shell->cmd_line)

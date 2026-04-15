@@ -14,7 +14,7 @@ static int	prepare_heredoc(char *delimiter)
 		{
 			if (!line && g_status != 130)
 				display_warning(delimiter);
-			break;
+			break ;
 		}
 		if (my_strcmp(line, delimiter) == 0)
 		{

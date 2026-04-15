@@ -5,7 +5,8 @@
  * * This function handles the "minishell: syntax error near unexpected token" 
  * message. If the offending token is NULL (e.g., at the end of a line), 
  * it prints 'newline'. Otherwise, it prints the specific token character.
- * It sets the exit status to 2, which is the standard Bash code for syntax errors.
+ * It sets the exit status to 2, which is the standard Bash code 
+ * for syntax errors.
  * * @param shell Pointer to the shell structure to update last_exit_status.
  * @param token The token that caused the syntax error (can be NULL).
  * @return Always returns 1 to signal that a syntax error was found.

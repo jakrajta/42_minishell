@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-void toggle_echoctl(int enable)
+void	toggle_echoctl(int enable)
 {
 	struct termios	term;
 
 	if (!isatty(STDIN_FILENO))
 		return ;
-	if (tcgetattr(STDIN_FILENO, &term)== -1)
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
 		return ;
 	if (enable)
 		term.c_lflag |= ECHOCTL;
