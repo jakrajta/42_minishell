@@ -80,6 +80,8 @@ typedef	struct s_shell
 	char	*cmd_line;    //stores initial input from user
 	char	**all_tokens;  // cmd line splitted to tokens with quotes and expanded VARS and $?
 	int		last_exit_status; 
+	int		prev_fd; // stores last fd[0] of pipeline after new pipe_fds{2] are created
+	pid_t	last_pid; // stores last pid, this wpid will be used for parent to clean processes
 	t_cmd	*cmd;
 	t_env	*env;
 	struct termios original_term;  //original tty setting backup (for toggle ECHOCTL)
@@ -114,7 +116,7 @@ void 		free_redir_list(t_redir **redir);
 void		free_shell(t_shell **shell);
 
 /* *** EXECUTION *** */
-void		child_process(int prev_fd, int pipe_fds[2], t_cmd *current,	t_shell *shell);
+void		child_process(int pipe_fds[2], t_cmd *current,	t_shell *shell);
 void		close_heredoc_fd(t_cmd *cmd);
 int 		execute_binary(t_cmd *cmd, t_shell *shell);
 int 		execute_builtin(t_cmd *cmd, t_shell *shell);
@@ -125,7 +127,7 @@ int 		execute_redir(t_redir *redir);
 char 		*get_cmd_path(t_shell *shell, char *cmd);
 int 		is_dir(char *path);
 void 		parent_process(int *prev_fd, int pipe_fds[2], t_cmd *current);
-void		wait_for_all_children(t_shell *shell, pid_t last_pid);
+void		wait_for_all_children(t_shell *shell);
 
 /* *** LEXER *** */
 int			check_quotes_error(char **tokens, t_shell *shell);

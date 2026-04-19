@@ -23,7 +23,10 @@ t_shell	*init_shell(char **envp)
 	update_env_value("OLDPWD", "", shell->env);
 	shell->cmd_line = NULL;
 	shell->all_tokens = NULL;
-	shell->cmd = NULL;
 	shell->last_exit_status = 0;
+	shell->prev_fd = -1;
+	shell->last_pid = -1;
+	shell->cmd = NULL;
+	
 	return (shell);
 }

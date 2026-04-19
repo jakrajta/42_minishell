@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+/**
+ * @brief Joins three strings into a new allocated string.
+ *
+ * This function calculates the total length of three input strings,
+ * allocates the necessary memory, and concatenates them in order.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * @param s3 The third string.
+ * @return A pointer to the newly allocated string, or NULL if allocation 
+ * fails or if any input string is NULL.
+ */
 char	*triple_strjoin(const char *s1, const char *s2, const char *s3)
 {
 	char	*joined;

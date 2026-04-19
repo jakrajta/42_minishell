@@ -59,7 +59,7 @@ SRC = builtins/builtins.c \
 	  signals/heredoc_signals.c \
 	  utils/general_split.c \
 	  utils/triple_join.c \
-	  utils/utils1.c \
+	  utils/utils.c \
 	  minishell.c \
 	
 # Object files (automatically fill of prefic src/)
