@@ -27,6 +27,5 @@ t_shell	*init_shell(char **envp)
 	shell->prev_fd = -1;
 	shell->last_pid = -1;
 	shell->cmd = NULL;
-	
 	return (shell);
 }

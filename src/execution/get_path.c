@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+/**
+ * @brief Updates the cached split PATH directories.
+ *
+ * Frees the existing array of split paths and regenerates it by 
+ * splitting the current "PATH" environment variable by the colon 
+ * (':') delimiter.
+ *
+ * @param env Pointer to the environment structure.
+ */
 static void	update_split_paths(t_env *env)
 {
 	char	*new_paths;
@@ -13,6 +22,15 @@ static void	update_split_paths(t_env *env)
 		env->split_paths = NULL;
 }
 
+/**
+ * @brief Checks if a given path corresponds to a directory.
+ *
+ * Uses the stat system call to retrieve file mode information and 
+ * determines if the path points to a directory.
+ *
+ * @param path The file path to check.
+ * @return 1 if it is a directory, 0 otherwise.
+ */
 int	is_dir(char *path)
 {
 	struct stat	st;
@@ -22,6 +40,18 @@ int	is_dir(char *path)
 	return (0);
 }
 
+/**
+ * @brief Resolves the full executable path for a given command.
+ *
+ * If the command contains a '/', it verifies the path directly.
+ * Otherwise, it iterates through directories listed in the PATH 
+ * environment variable to locate the executable.
+ *
+ * @param shell Pointer to the main shell structure.
+ * @param cmd The command name or partial path to resolve.
+ * @return The absolute path to the executable if found and executable, 
+ * NULL otherwise.
+ */
 char	*get_cmd_path(t_shell *shell, char *cmd)
 {
 	char	*full_path;

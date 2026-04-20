@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+/**
+ * @brief Handles error reporting and status code selection 
+ * for command lookup.
+ *
+ * Distinguishes between errors where a path was provided 
+ * (directory vs. file not found)
+ * and cases where the command simply doesn't exist in the 
+ * PATH environment variable.
+ *
+ * @param cmd_token The command string that failed to execute.
+ * @return The specific POSIX-compliant exit status (126 for 
+ * command is a directory, 127 for not found).
+ */
 static int	path_error(char *cmd_token)
 {
 	int	exit_status;
@@ -25,6 +38,17 @@ static int	path_error(char *cmd_token)
 	return (exit_status);
 }
 
+/**
+ * @brief Handles error reporting and status code selection for command lookup.
+ *
+ * Distinguishes between errors where a path was provided 
+ * (directory vs. file not found) and cases where the command 
+ * simply doesn't exist in the PATH environment variable.
+ *
+ * @param cmd_token The command string that failed to execute.
+ * @return The specific POSIX-compliant exit status 
+ * (126 for command is a directory, 127 for not found).
+ */
 int	execute_binary(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;

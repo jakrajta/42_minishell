@@ -12,24 +12,24 @@
  * @param current Pointer to the current command node.
  * @param shell Pointer to the main shell structure containing pipeline state.
  */
-static void run_pipeline_step(t_cmd *current, t_shell *shell)
+static void	run_pipeline_step(t_cmd *current, t_shell *shell)
 {
 	int	pipe_fds[2];
 
 	if (current->next && pipe(pipe_fds) == -1)
-		{
-			sys_error("pipe", NULL, strerror(errno));
-			return ;
-		}
-		shell->last_pid = fork();
-		if (shell->last_pid == -1)
-		{
-			sys_error("fork", NULL, strerror(errno));
-			return ;
-		}
-		if (shell->last_pid == 0)
-			child_process(pipe_fds, current, shell);
-		parent_process(&shell->prev_fd, pipe_fds, current);
+	{
+		sys_error("pipe", NULL, strerror(errno));
+		return ;
+	}
+	shell->last_pid = fork();
+	if (shell->last_pid == -1)
+	{
+		sys_error("fork", NULL, strerror(errno));
+		return ;
+	}
+	if (shell->last_pid == 0)
+		child_process(pipe_fds, current, shell);
+	parent_process(&shell->prev_fd, pipe_fds, current);
 }
 
 /**

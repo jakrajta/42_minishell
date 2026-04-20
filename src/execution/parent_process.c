@@ -1,7 +1,8 @@
 #include "minishell.h"
 
 /**
- * @brief Manages file descriptors in the parent process during pipeline execution.
+ * @brief Manages file descriptors in the parent process during 
+ * pipeline execution.
  *
  * Closes the input pipe of the previous command and updates the state to 
  * store the current read-end pipe for the next command. This ensures 
@@ -21,6 +22,7 @@ void	parent_process(int *prev_fd, int pipe_fds[2], t_cmd *current)
 		*prev_fd = pipe_fds[0];
 	}
 }
+
 /**
  * @brief Updates the shell's exit status based on the process that terminated.
  *
@@ -32,7 +34,7 @@ void	parent_process(int *prev_fd, int pipe_fds[2], t_cmd *current)
  * @param status The exit status of the terminated process (from wait()).
  * @param pid The PID of the process that just terminated.
  */
-static void update_exit_status(t_shell * shell, int status, pid_t pid)
+static void	update_exit_status(t_shell *shell, int status, pid_t pid)
 {
 	if (pid != shell->last_pid)
 		return ;

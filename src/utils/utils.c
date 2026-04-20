@@ -69,6 +69,7 @@ int	my_strcmp(const char *s1, const char *s2)
 	}
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
+
 /**
  * @brief Counts the number of elements in a NULL-terminated array of strings.
  *
