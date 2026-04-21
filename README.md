@@ -8,6 +8,7 @@ The primary objective was to build a functional command-line interpreter that su
 environment variables, and signal handling, while adhering to the strict 42 coding standards and architectural constraints.
 
 
+
 FEATURES
 
 Built-ins: echo, cd, pwd, export, unset, env, exit.
@@ -23,6 +24,7 @@ Environment: Variable expansion, exit status reporting.
 Signals: Correct POSIX signal management for interactive terminal sessions.
 
 
+
 TECHNICAL HIGHLIGHTS & LEARNINGS
 
 Process Management: Gained practical experience in isolating processes and managing pipes to link standard output of one command to the standard input of another.
@@ -32,24 +34,21 @@ Signal Handling: Learned how to safely manage signals using sigaction without co
 Parsing: Implemented a robust tokenizer and parser to handle complex command lines with nested quotes and redirections.
 
 
+
 INSTALATION & USAGE
 
-Clone the repository:
+###Clone the repository:
 
-Bash
-
+'''Bash
 git clone <https://github.com/jakrajta/42_minishell.git> minishell
-
 cd minishell
 
-Compile:
+###Compile:
 
-Bash
-
+'''Bash
 make
 
-Run:
+###Run:
 
-Bash
-
+'''Bash
 ./minishell
