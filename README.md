@@ -42,15 +42,17 @@ Clone the repository:
 ```Bash
 git clone <https://github.com/jakrajta/42_minishell.git> minishell
 cd minishell
+```
 
 
 Compile:
 
 ```Bash
 make
-
+```
 
 Run:
 
 ```Bash
 ./minishell
+```
