@@ -37,18 +37,20 @@ Parsing: Implemented a robust tokenizer and parser to handle complex command lin
 
 INSTALATION & USAGE
 
-###Clone the repository:
+Clone the repository:
 
 ```Bash
 git clone <https://github.com/jakrajta/42_minishell.git> minishell
 cd minishell
 
-###Compile:
+
+Compile:
 
 ```Bash
 make
 
-###Run:
+
+Run:
 
 ```Bash
 ./minishell
