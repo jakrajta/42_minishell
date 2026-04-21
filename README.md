@@ -39,16 +39,16 @@ INSTALATION & USAGE
 
 ###Clone the repository:
 
-'''Bash
+```Bash
 git clone <https://github.com/jakrajta/42_minishell.git> minishell
 cd minishell
 
 ###Compile:
 
-'''Bash
+```Bash
 make
 
 ###Run:
 
-'''Bash
+```Bash
 ./minishell
