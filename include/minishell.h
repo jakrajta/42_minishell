@@ -11,7 +11,7 @@
 # include <errno.h>
 # include <limits.h>
 # include <signal.h>
-# include <sys/stat.h>  // int is_dir(char *path)
+# include <sys/stat.h>
 # include <termios.h>
 
 // #define BOLDCYAN "\033[1;36m"
@@ -19,10 +19,10 @@
 // #define RESET "\033[0m"
 // #define PROMPT BOLDCYAN "minishell" BOLDWHITE "$"
 # define PROMPT "$ "
-# define SEPARATOR " \t\n\v\f\r" // \v - vertical tab, \f form feed - new page
+# define SEPARATOR " \t\n\v\f\r"
 # define METACHARS "|<>"
 
-extern int	g_status;  // signal exit status
+extern int	g_status;
 
 typedef enum e_builtin
 {
@@ -48,9 +48,9 @@ typedef enum e_token
 
 typedef struct s_redir
 {
-	t_token			tok_type;     // typ of token as in enum e_token
-	int				heredoc_fd;   // stores fd[0]
-	char			*file;        // malloked by strdup
+	t_token			tok_type;      // type of token as in enum e_token
+	int				heredoc_fd;    // stores fd[0]
+	char			*file;         // malloced by strdup
 	struct s_redir	*next;
 }	t_redir;
 
@@ -59,31 +59,31 @@ typedef struct s_cmd
 {
 	char			**tokens;		// clear tokens without quotes until pipe
 	int				tokens_count;   // tokes count until pipe
-	char			*valid_path;    // final path to binar command, e.g. /usr/bin/ls
+	char			*valid_path;    // final path to binary command, e.g. /usr/bin/ls
 	int				skip_exec;      // flag for skip execution in case of echo jana > $FILE, when FILE var is empty
 	t_builtin		builtin;
-	t_redir			*redir;         // includes redirs with files/ heredocs with deliminer 
+	t_redir			*redir;         // includes redirs with files / heredocs with deliminer 
 	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_env
 {
-	char	**env_copy;           //initial copy of bash environment variables
-	char	**split_paths;        // splited paths by ":" /usr/bin:/usr/sbin:
+	char	**env_copy;            // initial copy of bash environment variables
+	char	**split_paths;         // splitted paths by ":" /usr/bin:/usr/sbin:
 	char	*pwd;
 	char	*old_pwd;
 }	t_env;
 
 typedef struct s_shell
 {
-	char			*cmd_line;    //stores initial input from user
-	char			**all_tokens; // cmd line splitted to tokens with quotes and expanded VARS and $?
+	char			*cmd_line;     // stores initial input from user
+	char			**all_tokens;  // cmd line splitted to tokens with quotes and expanded $VARS and $?
 	int				last_exit_status;
-	int				prev_fd;      // stores last fd[0] of pipeline after new pipe_fds{2] are created
-	pid_t			last_pid;     // stores last pid, this wpid will be used for parent to clean processes
+	int				prev_fd;       // stores last fd[0] of pipeline after new pipe_fds{2] are created
+	pid_t			last_pid;      // stores last pid, this pid is to be used for parent to clean processes
 	t_cmd			*cmd;
 	t_env			*env;
-	struct termios	original_term; //original tty setting backup (for toggle ECHOCTL)
+	struct termios	original_term; // original tty setting backup (for toggle ECHOCTL)
 }	t_shell;
 
 /* *** BUILTIN FCE *** */

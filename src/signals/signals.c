@@ -1,4 +1,4 @@
-#define _XOPEN_SOURCE 700  // for VSCODE not to underline the structures, erase befor submitting
+#define _XOPEN_SOURCE 700  // for VSCODE not to underline the structures
 #include "minishell.h"
 
 int	g_status = 0;
