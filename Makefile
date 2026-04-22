@@ -53,6 +53,7 @@ SRC = builtins/builtins.c \
 	  parser/remove_quotes.c \
 	  main/init_env.c \
 	  main/init_shell.c \
+	  main/main.c \
 	  main/process_input.c \
 	  main/shell_setup.c \
 	  signals/signals.c \
@@ -60,7 +61,6 @@ SRC = builtins/builtins.c \
 	  utils/general_split.c \
 	  utils/triple_join.c \
 	  utils/utils.c \
-	  minishell.c \
 	
 # Object files (automatically fill of prefic src/)
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

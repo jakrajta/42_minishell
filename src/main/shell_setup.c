@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+/**
+ * @brief Toggles the ECHOCTL flag in the terminal settings.
+ *
+ * ECHOCTL determines whether control characters (like Ctrl+C) are echoed 
+ * as visible characters (e.g., ^C) in the terminal output. 
+ * Disabling this makes the terminal output cleaner during shell operation.
+ *
+ * @param enable If non-zero, enables the ECHOCTL flag; if zero, disables it.
+ */
 void	toggle_echoctl(int enable)
 {
 	struct termios	term;
@@ -43,6 +52,15 @@ void	handle_shlvl(t_shell *shell)
 	free(value);
 }
 
+/**
+ * @brief Initializes the shell environment and terminal settings.
+ *
+ * Saves the original terminal attributes to ensure they can be restored later,
+ * disables the ECHOCTL flag to prevent "^C" from appearing on the screen 
+ * during interactive use, updates the shell level, and configures signal handlers.
+ *
+ * @param shell Pointer to the shell structure to be initialized.
+ */
 void	shell_setup(t_shell *shell)
 {
 	if (isatty(STDIN_FILENO))

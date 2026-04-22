@@ -21,8 +21,14 @@ static void	execute_single_builtin(t_shell *shell)
 		shell->last_exit_status = execute_builtin(shell->cmd, shell);
 	else
 		shell->last_exit_status = 1;
-	dup2(stdin_backup, STDIN_FILENO);
-	dup2(stdout_backup, STDOUT_FILENO);
+	if (dup2(stdin_backup, STDIN_FILENO) == -1 
+	|| dup2(stdout_backup, STDOUT_FILENO) == -1)
+	{
+		close(stdin_backup);
+		close(stdout_backup);
+		free_shell(&shell);
+		exit (1);
+	}
 	close(stdin_backup);
 	close(stdout_backup);
 }

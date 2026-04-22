@@ -13,6 +13,7 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <termios.h>
+# include <fcntl.h>
 
 // #define BOLDCYAN "\033[1;36m"
 // #define BOLDWHITE "\033[1;37m"

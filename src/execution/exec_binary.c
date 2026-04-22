@@ -58,7 +58,6 @@ int	execute_binary(t_cmd *cmd, t_shell *shell)
 	if (!path)
 	{
 		exit_status = path_error(cmd->tokens[0]);
-		free_shell(&shell);
 		exit(exit_status);
 	}
 	if (isatty(STDIN_FILENO))
@@ -67,7 +66,6 @@ int	execute_binary(t_cmd *cmd, t_shell *shell)
 	{
 		sys_error(cmd->tokens[0], NULL, strerror(errno));
 		free(path);
-		free_shell(&shell);
 		exit(126);
 	}
 	return (0);
