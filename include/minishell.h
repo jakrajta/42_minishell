@@ -124,7 +124,7 @@ void		execute_commands(t_shell *shell);
 int			execute_heredoc(t_cmd *cmd);
 int			execute_pipeline(t_shell *shell);
 int			execute_redir(t_redir *redir);
-char		*get_cmd_path(t_shell *shell, char *cmd);
+char		*get_bin_path(t_shell *shell, char *cmd);
 int			is_dir(char *path);
 void		parent_process(int *prev_fd, int pipe_fds[2], t_cmd *current);
 void		wait_for_all_children(t_shell *shell);

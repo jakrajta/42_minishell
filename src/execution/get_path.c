@@ -52,7 +52,7 @@ int	is_dir(char *path)
  * @return The absolute path to the executable if found and executable, 
  * NULL otherwise.
  */
-char	*get_cmd_path(t_shell *shell, char *cmd)
+char	*get_bin_path(t_shell *shell, char *cmd)
 {
 	char	*full_path;
 	int		i;

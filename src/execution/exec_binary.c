@@ -54,7 +54,7 @@ int	execute_binary(t_cmd *cmd, t_shell *shell)
 	char	*path;
 	int		exit_status;
 
-	path = get_cmd_path(shell, cmd->tokens[0]);
+	path = get_bin_path(shell, cmd->tokens[0]);
 	if (!path)
 	{
 		exit_status = path_error(cmd->tokens[0]);
