@@ -57,7 +57,8 @@ void	handle_shlvl(t_shell *shell)
  *
  * Saves the original terminal attributes to ensure they can be restored later,
  * disables the ECHOCTL flag to prevent "^C" from appearing on the screen 
- * during interactive use, updates the shell level, and configures signal handlers.
+ * during interactive use, updates the shell level, and configures signal 
+ * handlers.
  *
  * @param shell Pointer to the shell structure to be initialized.
  */
