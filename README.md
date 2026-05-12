@@ -108,6 +108,3 @@ This project bridges the gap between using a shell and understanding how it work
 - Handles edge cases and signals properly for robust interactive shell usage
 - Designed for educational purposes as part of 42 curriculum
 
----
-
-**Status:** Complete (100/100 Project)
